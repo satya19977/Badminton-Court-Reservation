@@ -123,7 +123,7 @@ spec:
  ```
 
 ## Step 3 : Configure Environment Variables
-#### 3.1 Define environment variables for your frontend and backend Pods to connect to MongoDB.
+#### 3.1 Define environment variables for your  Pods to connect to MongoDB.
 ```
 apiVersion: v1
 kind: Secret
@@ -146,5 +146,14 @@ data:
 
 ## Step 4 : Access Your App and MongoDB
 #### 4.2 Access the Mongo Express interface using the NodePort
+
+![Screenshot (1294)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/f60a8872-6216-4a15-85c5-cb5680d0d5be)
+
+
+
+# Output
+
+
+![Screenshot (1293)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/826e72a1-bef6-4adf-8cfe-372b3c57ff1c)
 
 
