@@ -31,8 +31,9 @@ Update repo
 ```
 helm repo update eks
 ```
+```
 helm install aws-load-balancer eks/aws-load-balancer-controller --namespace kube-system   --set clusterName=ultimate-cluster   --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller --set region=us-east-1  --set vpcId=vpc-0e0051d40dc41
- 
+``` 
 
 ## Yaml for Ingress
 ```
