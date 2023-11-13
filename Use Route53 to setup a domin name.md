@@ -3,7 +3,7 @@ Use Route53 to map the ingress Address and create a record of type A. In my case
 Prerequisities
 
 
-1)Buy a domain name from Route53, look for .click they are the cheapest.
+1) Buy a domain name from Route53, look for .click they are the cheapest.
 
 2) Create a hostedzone.
    
