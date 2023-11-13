@@ -1,4 +1,4 @@
-Use Route53 to map the ingress Address and create a record of type A. In my case it would be mycluster.myprojectssatya.click
+# Use Route53 to map the ingress Address and create a record of type A. In my case it would be mycluster.myprojectssatya.click
 
 Prerequisities
 
@@ -7,7 +7,7 @@ Prerequisities
 
 2) Create a hostedzone.
    
-# Associate your domain name to ingress
+## Associate your domain name to ingress
 
 ![Screenshot (1454)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/6ea4df55-909e-4b24-9e99-e0b6e2f12d3a)
 
