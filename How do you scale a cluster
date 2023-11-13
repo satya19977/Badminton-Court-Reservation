@@ -4,7 +4,7 @@
 
 We want to scale our deployment named webapp-deployment based on CPU utilizations of > 60% 
 
-
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -66,9 +66,10 @@ spec:
       port: 8083
       targetPort: 8081
       nodePort: 30002
-
+```
 ## Yaml file for HPA
 
+```
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -88,3 +89,4 @@ spec:
       target:
         type: Utilization
         averageUtilization: 60
+```
