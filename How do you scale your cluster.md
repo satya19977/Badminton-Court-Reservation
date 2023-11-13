@@ -1,6 +1,17 @@
 # Scaling is an important part of your cluster as it enables you to serve traffic without any hiccups!!
 
-## HorizontalPodAutoscaler to scale your pod 
+## Prerequisites
+Install Kubernetes metrics server in EKS cluster
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+Check if metrics server has been deployed
+```
+Kubectl get deploy metrics-server -n kube-system
+```
+
+
+## HorizontalPodAutoscaler to scale your pod
 
 We want to scale our deployment named webapp-deployment based on CPU utilizations of > 60% 
 
@@ -90,3 +101,26 @@ spec:
         type: Utilization
         averageUtilization: 60
 ```
+This is the output before load was generated 
+
+![Screenshot (1449)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/dbe4ef1d-c84f-4a30-8958-082ba5ef4ad6)
+
+As is evident from above we see that only one pod is active
+
+## Generate Load
+```
+kubectl run -i --tty load-generator4 --rm --image=alpine --restart=Never -- /bin/sh
+apk --no-cache add curl
+while sleep 0.01; do curl -s -u admin:pass http://k8s-eventscl-em2-8d19ca2457-405296923.us-east-1.elb.amazonaws.com; done
+```
+
+![Screenshot (1450)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/885350d8-089b-4fce-af2b-b80ea0441e0a)
+
+The HPA kicked in and the number of pods has scaled upto 5 which was the limit set in our yaml file
+
+
+
+
+
+
+
