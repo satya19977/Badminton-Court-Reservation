@@ -1,4 +1,0 @@
-# We install SSL/TLS Certificate on our ALB so that our data in-transit is encrypted.
-
-## Step 1. Create a public Certificate using ACM
-
