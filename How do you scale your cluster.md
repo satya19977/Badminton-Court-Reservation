@@ -1,11 +1,11 @@
 # Scaling is an important part of your cluster as it enables you to serve traffic without any hiccups!!
 
 ## Prerequisites
-Install Kubernetes metrics server in EKS cluster
+### Install Kubernetes metrics server in EKS cluster
 ```
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
-Check if metrics server has been deployed
+### Check if metrics server has been deployed
 ```
 Kubectl get deploy metrics-server -n kube-system
 ```
@@ -13,7 +13,7 @@ Kubectl get deploy metrics-server -n kube-system
 
 ## HorizontalPodAutoscaler to scale your pod
 
-We want to scale our deployment named webapp-deployment based on CPU utilizations of > 60% 
+### We want to scale our deployment named webapp-deployment based on CPU utilizations of > 60% 
 
 ```
 apiVersion: apps/v1
@@ -101,13 +101,13 @@ spec:
         type: Utilization
         averageUtilization: 60
 ```
-This is the output before load was generated 
+### This is the output before load was generated 
 
 ![Screenshot (1449)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/dbe4ef1d-c84f-4a30-8958-082ba5ef4ad6)
 
 As is evident from above we see that only one pod is active
 
-## Generate Load
+### Generate Load
 ```
 kubectl run -i --tty load-generator4 --rm --image=alpine --restart=Never -- /bin/sh
 apk --no-cache add curl
