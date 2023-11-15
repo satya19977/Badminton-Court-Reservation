@@ -102,5 +102,8 @@ spec:
 ```
 # ![Screenshot (1473)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/aebb5ba9-5843-471a-af73-1414cf200f01)
 
-#### You can take the address of each ingress resource and map it to a domanin name to create something like grafana.something.com or prometheus. 
+#### You can take the address of each ingress resource and map it to a domain name to create something like grafana.something.com or prometheus. 
+
+![Screenshot (1474)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/d713149a-10fb-42bd-9c07-2c41dc97aa64)
+
 
