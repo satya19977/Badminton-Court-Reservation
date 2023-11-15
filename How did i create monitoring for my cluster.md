@@ -1,7 +1,9 @@
 # For monitoring we use prometheus which scrapes metrics data and to visualize our findings we use grafana
 
 ## Prerequisites 
+1.Metrics Server
 
+2.ALB Ingress Controller
 
 ### Helm chart for Prometheus
 
