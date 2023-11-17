@@ -67,3 +67,28 @@ subjects:
 #### As is evident our user has no access to pods and resources defined in our cluster
 
 ![Screenshot (1488)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/ee126ee1-90f4-45c1-9729-32436406ab0f)
+
+#### 3. Use Network Policies to restrict access to mongodb. Only pods from webapp should be allowed
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mongodb-network-policy
+  namespace: events-cluster
+spec:
+  podSelector:
+    matchLabels:
+      app: mongo
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: webapp
+```
+
+#### We created a temporary pod tmp in the same namesapce and tried to connect to mongopod. As is evident from the picture below our connection was refused
+
+![Screenshot (1490)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/6ee03d6d-6249-40e4-9c2c-a847cbda18c3)
+
