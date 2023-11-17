@@ -1,6 +1,10 @@
 ## Security defines how access to cluster is given. 
 By default in EKS, you cannot modify through aws-auth the permissions of the account that created the EKS cluster
 
+### How do we secure our cluster. 
+#### 1. We use RBAC
+#### 2. We use Network Policies
+
 ## Prerequisites
 1. Create two users in and no permissions attached to them in IAM
 
