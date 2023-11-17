@@ -2,13 +2,19 @@
 By default in EKS, you cannot modify through aws-auth the permissions of the account that created the EKS cluster
 
 ### How do we secure our cluster. 
-#### 1. We use RBAC
-#### 2. We use Network Policies
-#### 3. We use IRSA - enables application running in cluster to authenticate with AWS using IAM roles
+#### 1. Secure our API server
+#### 2. We use RBAC
+#### 3. We use Network Policies
+#### 4. We use IRSA - enables application running in cluster to authenticate with AWS using IAM roles
+#### 5.Secure Container Images
+#### 6.Cluster Monitoring
+#### 7. Constant Upgrades
 
 ## Prerequisites
 1. Create two users in and no permissions attached to them in IAM
 
+### 1. Secure our API Server
+#### We secure our API Server by limiting the access to the pod/namespace
 ### 1. Give admin access to other users
 ![Screenshot (1483)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/f9f1f94c-04a9-473a-9c69-fb871f516296)
 
