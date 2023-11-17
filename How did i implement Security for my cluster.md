@@ -4,6 +4,7 @@ By default in EKS, you cannot modify through aws-auth the permissions of the acc
 ### How do we secure our cluster. 
 #### 1. We use RBAC
 #### 2. We use Network Policies
+#### 3. We use IRSA - enables application running in cluster to authenticate with AWS using IAM roles
 
 ## Prerequisites
 1. Create two users in and no permissions attached to them in IAM
