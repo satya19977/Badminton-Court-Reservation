@@ -6,8 +6,8 @@ By default in EKS, you cannot modify through aws-auth the permissions of the acc
 #### 2. We use RBAC
 #### 3. We use Network Policies
 #### 4. We use IRSA - enables application running in cluster to authenticate with AWS using IAM roles
-#### 5.Secure Container Images
-#### 6.Cluster Monitoring
+#### 5. Secure Container Images
+#### 6. Cluster Monitoring
 #### 7. Constant Upgrades
 
 ## Prerequisites
