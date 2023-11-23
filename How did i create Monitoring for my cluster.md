@@ -4,7 +4,6 @@
 ## Prerequisites 
 1.Metrics Server
 
-2.ALB Ingress Controller
 
 ### Helm chart for Prometheus
 
