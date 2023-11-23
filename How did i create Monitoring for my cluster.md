@@ -112,7 +112,7 @@ spec:
 
 ![Screenshot (1500)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/0b636bcb-6d64-4a7d-ac3d-40066e4a7b7d)
 
-### The above dashboard is a basic one. If we want to expose more metrics we need to use kube-state-metrics.
+### The above dashboard is a basic one. If we want to expose advanced  metrics we need to use kube-state-metrics.
 1. To do that we need to expose our kube-state-metrics pod to nodeport
 
 2. Get the Configmap of the prometheus-server and change the targethost to whatever is required
