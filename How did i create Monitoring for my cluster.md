@@ -1,4 +1,4 @@
-# For monitoring we use prometheus which scrapes metrics data and to visualize our findings we use grafana
+## For monitoring we use prometheus which scrapes metrics data and to visualize our findings we use grafana
 
 
 ## Prerequisites 
@@ -112,3 +112,12 @@ spec:
 
 ![Screenshot (1500)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/0b636bcb-6d64-4a7d-ac3d-40066e4a7b7d)
 
+### The above dashboard is a basic one. If we want to expose more metrics we need to use kube-state-metrics.
+1. To do that we need to expose our kube-state-metrics pod to nodeport
+
+2. Get the Configmap of the prometheus-server and change the targethost to whatever is required
+![Screenshot (1503)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/e289b2d5-3b7b-438f-9433-5ad4a8a27085)
+
+
+
+   
