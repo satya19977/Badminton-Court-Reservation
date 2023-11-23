@@ -107,4 +107,9 @@ spec:
 
 ![Screenshot (1474)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/d713149a-10fb-42bd-9c07-2c41dc97aa64)
 
+### A Sample of our Grafana Dashboard which exposes metrics from metrics server endpoint
+
+![Screenshot (1501)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/434744ce-e6ad-4f28-8339-89691241995a)
+
+![Screenshot (1500)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/0b636bcb-6d64-4a7d-ac3d-40066e4a7b7d)
 
