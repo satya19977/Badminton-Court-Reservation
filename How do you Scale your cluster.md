@@ -1,4 +1,7 @@
-# Scaling is an important part of your cluster as it enables you to serve traffic without any hiccups!!
+## Scaling is an important part of your cluster as it enables you to serve traffic without any hiccups!!
+There are two types of Scaling
+1. Kubernetes Cluster Scaling Using HPA
+2. Node Scaling Using Karpenter
 
 ## Prerequisites
 ### Install Kubernetes metrics server in EKS cluster
@@ -118,7 +121,28 @@ while sleep 0.01; do curl -s -u admin:pass http://k8s-eventscl-em2-8d19ca2457-40
 
 The HPA kicked in and the number of pods has scaled upto 5 which was the limit set in our yaml file
 
+## We used HPA to scale pod traffic but what if the pods reach node limit. In that case we need to scale up our nodes as well. That's where Karpenter comes in. 
 
+### Yaml for karpenter is given below
+
+```
+apiVersion: karpenter.sh/v1alpha5
+kind: Provisioner
+metadata:
+  name: karpenter-provisioner
+spec:
+  limits:
+   resources:
+    cpu: 2000
+  requirements:
+    - key: karpenter.sh/capacity-type
+      operator: In
+      values: ["spot"]
+  ttlSecondsAfterEmpty: 20
+  provider:
+    instanceProfile: arn:aws:iam::69@#$$%:role/KarpenterNodeRole-ultimate-cluster
+```
+This will look for spot instances to spin up which have Vcpus less than  2. 
 
 
 
