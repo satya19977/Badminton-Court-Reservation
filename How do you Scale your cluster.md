@@ -1,4 +1,4 @@
-## Scaling is an important part of your cluster as it enables you to serve traffic without any hiccups!!
+## Scaling is an important part of your cluster as it enables you to serve traffic without any hiccups and make your infrastructure reliable !!
 There are two types of Scaling
 1. Kubernetes Cluster Scaling Using HPA
 2. Node Scaling Using Karpenter
