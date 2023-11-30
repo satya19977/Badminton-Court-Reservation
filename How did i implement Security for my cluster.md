@@ -79,7 +79,7 @@ subjects:
 
 ![Screenshot (1488)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/ee126ee1-90f4-45c1-9729-32436406ab0f)
 
-#### 3. Use Network Policies to restrict access to mongodb. Only pods from webapp should be allowed
+### 3. Use Network Policies to restrict access to mongodb. Only pods from webapp should be allowed
 ```
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
