@@ -14,7 +14,11 @@ By default in EKS, you cannot modify through aws-auth the permissions of the acc
 1. Create two users in and no permissions attached to them in IAM
 
 ### 1. Secure our API Server
-#### We secure our API Server by limiting the access to the pod/namespace
+In AWS EKS there are two ways to access our API Endpoints
+1. Public Access Endpoint - In this API access is open to public
+
+2. Private Access Endpoint - WE can lock down access to specific VPC or further restrict it with specifi CIDR Blocks
+
 ### 1. Give admin access to other users
 ![Screenshot (1483)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/f9f1f94c-04a9-473a-9c69-fb871f516296)
 
