@@ -1,5 +1,4 @@
 ## Security defines how access to cluster is given. 
-By default in EKS, you cannot modify through aws-auth the permissions of the account that created the EKS cluster
 
 ### How do we secure our cluster. 
 #### 1. Secure our API server
@@ -9,6 +8,7 @@ By default in EKS, you cannot modify through aws-auth the permissions of the acc
 #### 5. Secure Container Images
 #### 6. Cluster Monitoring
 #### 7. Constant Upgrades
+#### 8. By default in EKS, you cannot modify through aws-auth, the permissions of the account that created the EKS cluster
 
 ## Prerequisites
 1. Create two users in and no permissions attached to them in IAM
@@ -17,9 +17,10 @@ By default in EKS, you cannot modify through aws-auth the permissions of the acc
 In AWS EKS there are two ways to access our API Endpoints
 1. Public Access Endpoint - In this API access is open to public
 
-2. Private Access Endpoint - WE can lock down access to specific VPC or further restrict it with specifi CIDR Blocks
-
-### 1. Give admin access to other users
+2. Private Access Endpoint - We can lock down access to specific VPC or further restrict it with specifi CIDR Blocks
+   
+### 2. Control access using RBAC
+#### 2.1. Give admin access to other users
 ![Screenshot (1483)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/f9f1f94c-04a9-473a-9c69-fb871f516296)
 
 #### We see that the user1 has no permission to access the cluster 
@@ -35,7 +36,6 @@ kubectl edit -n kube-system configmap/aws-auth
 
 ![Screenshot (1486)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/624a86ae-81cd-4072-a496-7692d10a0610)
 
-### 2. Control access using RBAC
 
 #### We create another user user2 with the same IAM permissions as the first user but we use Role and RoleBinding to cut down access to our cluster
 
