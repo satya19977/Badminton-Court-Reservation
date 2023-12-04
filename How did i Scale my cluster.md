@@ -126,22 +126,7 @@ The HPA kicked in and the number of pods has scaled upto 5 which was the limit s
 ### Configuration to deploy Karpenter
 ```
 
-########################################################
-# How To Auto-Scale Kubernetes Clusters With Karpenter #
-# https://youtu.be/C-2v7HT-uSA                         #
-########################################################
-
-# Referenced videos:
-# - Karpenter: https://karpenter.sh
-# - GKE Autopilot - Fully Managed Kubernetes Service From Google: https://youtu.be/Zztufl4mFQ4
-
-#########
 # Setup #
-#########
-
-git clone https://github.com/vfarcic/karpenter-demo
-
-cd karpenter-demo
 
 export CLUSTER_NAME=devops-toolkit
 
@@ -177,9 +162,9 @@ export CLUSTER_ENDPOINT=$(aws eks describe-cluster \
 
 echo $CLUSTER_ENDPOINT
 
-###########################
+
 # Karpenter Prerequisites #
-###########################
+
 
 export SUBNET_IDS=$(\
     aws cloudformation describe-stacks \
@@ -222,6 +207,24 @@ eksctl create iamserviceaccount \
 # Execute only if this is the first time using spot instances in this account
 aws iam create-service-linked-role \
     --aws-service-name spot.amazonaws.com
+
+### Install Karpenter
+helm repo add karpenter \
+    https://charts.karpenter.sh
+
+helm repo update
+
+helm upgrade --install \
+    karpenter karpenter/karpenter \
+    --namespace karpenter \
+    --create-namespace \
+    --set serviceAccount.create=false \
+    --version 0.5.0 \
+    --set controller.clusterName=$CLUSTER_NAME \
+    --set controller.clusterEndpoint=$CLUSTER_ENDPOINT \
+    --wait
+
+kubectl --namespace karpenter get all
 ```
 
 ### Yaml for karpenter is given below
