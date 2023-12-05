@@ -66,7 +66,7 @@ spec:
 
 ### Copy the address and paste it in your browser
 
-![Screenshot (1527)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/1796b103-969a-4c16-a3e6-491cdef0dd5f)
+# ![Screenshot (1527)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/1796b103-969a-4c16-a3e6-491cdef0dd5f)
 
 
 
@@ -96,7 +96,7 @@ spec:
                 port:
                   number: 85
 ```
-![Screenshot (1525)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/6b2c46a5-319b-4917-9613-347723a3d053)
+# ![Screenshot (1525)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/6b2c46a5-319b-4917-9613-347723a3d053)
 
 ## Ingress Resource for Grafana
 
@@ -125,5 +125,5 @@ spec:
                   number: 8084
 ```
 
-![Screenshot (1526)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/193a0f5c-0fef-4830-a8e3-4bbc3275aa39)
+# ![Screenshot (1526)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/193a0f5c-0fef-4830-a8e3-4bbc3275aa39)
 
