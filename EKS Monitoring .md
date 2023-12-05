@@ -49,58 +49,8 @@ helm install grafana grafana/grafana
 ```
 kubectl expose service grafana  --type=NodePort  --target-port=3000  --name=grafana-out -n grafana
 ```
-### Create an ingress Resource for prometheus 
 
-```
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: em2-prometheus
-  namespace: prometheus
-  annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-spec:
-  ingressClassName: alb
-  rules:
-  
-   - http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: prometheus-server-out
-            port:
-              number: 85
-```
-### Create an ingress resource for grafana
 
-```
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  namespace: grafana
-  name: em2-grafana
-  annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    
-spec:
-  ingressClassName: alb
-  rules:
-   
-    - http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: grafana-out
-              port:
-                number: 8084
-```
-# ![Screenshot (1473)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/aebb5ba9-5843-471a-af73-1414cf200f01)
 
 #### You can take the address of each ingress resource and map it to a domain name to create something like grafana.something.com or prometheus. 
 
