@@ -127,7 +127,7 @@ The HPA kicked in and the number of pods has scaled upto 5 which was the limit s
 #Why karpenter over Cluster Auto-Scaler
 #How does Karpenter work
 
-### Test Auto-Scaling and time taken 
+### Test1. Auto-Scaling and time taken 
 
 Provisioner.yaml
 ```
@@ -212,6 +212,35 @@ spec:
 ### We introduced load and karpenter spun up a new spot instance in about 45 seconds
 ![Screenshot (1539)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/58f3173f-6f9f-480b-a1a1-6e5203d6b4fa)
 
+### Test2. Limit set on vcpu
+
+This pod has memory set to 3000m but the limit in our yaml file is 2000m
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  
+  labels:
+    run: tmp
+  name: tmp
+spec:
+  containers:
+  - image: nginx
+    name: tmp
+    resources: 
+      requests:
+       memory: "64Mi"
+       cpu: "3000m"
+       
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
+
+![Screenshot (1540)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/dd6e3882-81a8-419a-916e-6b29e0cf47fb)
+
+### The pod doesn't get scheduled and karpenter logs displays the error saying not comapatible with the Nodepool
+![Screenshot (1541)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/53ddbc79-21de-4edc-a155-0ede14d9fadd)
 
 
 
