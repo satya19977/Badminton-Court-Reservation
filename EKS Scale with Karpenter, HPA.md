@@ -123,130 +123,96 @@ The HPA kicked in and the number of pods has scaled upto 5 which was the limit s
 
 ## We used HPA to scale pod traffic but what if the pods reach node limit. In that case we need to scale up our nodes as well. That's where Karpenter comes in. 
 
-### Configuration to deploy Karpenter
+#What is Karpenter
+#Why karpenter over Cluster Auto-Scaler
+#How does Karpenter work
+
+### Test Auto-Scaling and time taken 
+
+Provisioner.yaml
 ```
-
-# Setup #
-
-export CLUSTER_NAME=devops-toolkit
-
-# Replace `[...]` with your access key ID
-export AWS_ACCESS_KEY_ID=[...]
-
-# Replace `[...]` with your secret access key
-export AWS_SECRET_ACCESS_KEY=[...]
-
-export AWS_DEFAULT_REGION=us-east-1
-
-cat cluster.yaml \
-    | sed -e "s@name: .*@name: $CLUSTER_NAME@g" \
-    | sed -e "s@region: .*@region: $AWS_DEFAULT_REGION@g" \
-    | tee cluster.yaml
-
-cat provisioner.yaml \
-    | sed -e "s@instanceProfile: .*@instanceProfile: KarpenterNodeInstanceProfile-$CLUSTER_NAME@g" \
-    | sed -e "s@.* # Zones@      values: [${AWS_DEFAULT_REGION}a, ${AWS_DEFAULT_REGION}b, ${AWS_DEFAULT_REGION}c] # Zones@g" \
-    | tee provisioner.yaml
-
-cat app.yaml \
-    | sed -e "s@topology.kubernetes.io/zone: .*@topology.kubernetes.io/zone: ${AWS_DEFAULT_REGION}a@g" \
-    | tee app.yaml
-
-eksctl create cluster \
-    --config-file cluster.yaml
-
-export CLUSTER_ENDPOINT=$(aws eks describe-cluster \
-    --name $CLUSTER_NAME \
-    --query "cluster.endpoint" \
-    --output json)
-
-echo $CLUSTER_ENDPOINT
-
-
-# Karpenter Prerequisites #
-
-
-export SUBNET_IDS=$(\
-    aws cloudformation describe-stacks \
-    --stack-name eksctl-$CLUSTER_NAME-cluster \
-    --query 'Stacks[].Outputs[?OutputKey==`SubnetsPrivate`].OutputValue' \
-    --output text)
-
-aws ec2 create-tags \
-    --resources $(echo $SUBNET_IDS | tr ',' '\n') \
-    --tags Key="kubernetes.io/cluster/$CLUSTER_NAME",Value=
-
-curl -fsSL https://raw.githubusercontent.com/aws/karpenter/v0.30.0/website/content/en/preview/getting-started/getting-started-with-karpenter/cloudformation.yaml \
-    | tee karpenter.yaml
-
-aws cloudformation deploy \
-    --stack-name Karpenter-$CLUSTER_NAME \
-    --template-file karpenter.yaml \
-    --capabilities CAPABILITY_NAMED_IAM \
-    --parameter-overrides ClusterName=$CLUSTER_NAME
-
-export AWS_ACCOUNT_ID=$(\
-    aws sts get-caller-identity \
-    --query Account \
-    --output text)
-
-eksctl create iamidentitymapping \
-    --username system:node:{{EC2PrivateDNSName}} \
-    --cluster  $CLUSTER_NAME \
-    --arn arn:aws:iam::${AWS_ACCOUNT_ID}:role/KarpenterNodeRole-$CLUSTER_NAME \
-    --group system:bootstrappers \
-    --group system:nodes
-
-eksctl create iamserviceaccount \
-    --cluster $CLUSTER_NAME \
-    --name karpenter \
-    --namespace karpenter \
-    --attach-policy-arn arn:aws:iam::$AWS_ACCOUNT_ID:policy/KarpenterControllerPolicy-$CLUSTER_NAME \
-    --approve
-
-# Execute only if this is the first time using spot instances in this account
-aws iam create-service-linked-role \
-    --aws-service-name spot.amazonaws.com
-
-### Install Karpenter
-helm repo add karpenter \
-    https://charts.karpenter.sh
-
-helm repo update
-
-helm upgrade --install \
-    karpenter karpenter/karpenter \
-    --namespace karpenter \
-    --create-namespace \
-    --set serviceAccount.create=false \
-    --version 0.5.0 \
-    --set controller.clusterName=$CLUSTER_NAME \
-    --set controller.clusterEndpoint=$CLUSTER_ENDPOINT \
-    --wait
-
-kubectl --namespace karpenter get all
-```
-
-### Yaml for karpenter is given below
-
-```
-apiVersion: karpenter.sh/v1alpha5
-kind: Provisioner
+apiVersion: karpenter.sh/v1beta1
+kind: NodePool
 metadata:
-  name: karpenter-provisioner
+  name: default
 spec:
+  template:
+    spec:
+      requirements:
+        - key: kubernetes.io/arch
+          operator: In
+          values: ["amd64"]
+        - key: kubernetes.io/os
+          operator: In
+          values: ["linux"]
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: ["spot"]
+        - key: karpenter.k8s.aws/instance-category
+          operator: In
+          values: ["c", "m", "r"]
+        - key: karpenter.k8s.aws/instance-generation
+          operator: Gt
+          values: ["2"]
+      nodeClassRef:
+        name: default
   limits:
-   resources:
-    cpu: 2000
-  requirements:
-    - key: karpenter.sh/capacity-type
-      operator: In
-      values: ["spot"]
-  ttlSecondsAfterEmpty: 20
-  provider:
-    instanceProfile: arn:aws:iam::69@#$$%:role/KarpenterNodeRole-ultimate-cluster
+    cpu: 1000
+  disruption:
+    consolidationPolicy: WhenUnderutilized
+    expireAfter: 1h 
+---
+apiVersion: karpenter.k8s.aws/v1beta1
+kind: EC2NodeClass
+metadata:
+  name: default
+spec:
+  amiFamily: AL2 # Amazon Linux 2
+  role: "KarpenterNodeRole-ultimate-cluster" # replace with your cluster name
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "ultimate-cluster" # replace with your cluster name
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "ultimate-cluster" # replace with your cluster name
 ```
-This will look for spot instances to spin up which have Vcpus less than  2. 
+
+![Screenshot (1536)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/9f35ba80-7b28-4cb9-b31a-707d89e5f430)
+### We are running two nodes of type  m5.large
+![Screenshot (1535)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/a2b5f9e7-ee16-42d1-b527-bf73fcb6bf2a)
+
+
+
+ Sample Deployment  that generates load
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inflate
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: inflate
+  template:
+    metadata:
+      labels:
+        app: inflate
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: inflate
+          image: public.ecr.aws/eks-distro/kubernetes/pause:3.7
+          resources:
+            requests:
+              cpu: 1
+```
+![Screenshot (1538)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/ae86c6bf-f22a-474b-915c-d892089bc09b)
+
+### We introduced load and karpenter spun up a new spot instance in about 45 seconds
+![Screenshot (1539)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/58f3173f-6f9f-480b-a1a1-6e5203d6b4fa)
+
+
 
 
 
