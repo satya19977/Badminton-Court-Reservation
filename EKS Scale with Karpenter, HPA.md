@@ -168,13 +168,13 @@ metadata:
   name: default
 spec:
   amiFamily: AL2 # Amazon Linux 2
-  role: "KarpenterNodeRole-ultimate-cluster" # replace with your cluster name
+  role: "KarpenterNodeRole-ultimate-cluster" 
   subnetSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "ultimate-cluster" # replace with your cluster name
+        karpenter.sh/discovery: "ultimate-cluster" 
   securityGroupSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "ultimate-cluster" # replace with your cluster name
+        karpenter.sh/discovery: "ultimate-cluster" 
 ```
 
 ![Screenshot (1536)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/9f35ba80-7b28-4cb9-b31a-707d89e5f430)
