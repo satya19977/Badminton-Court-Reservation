@@ -60,7 +60,7 @@ We used ID 3662 which talks about up time and down-time of our cluster
 
 
 
-### The above dashboard is a basic one. If we want to expose advanced  metrics we need to use kube-state-metrics. 
+### The above dashboard is a basic one. If we want to expose cluster metrics we need to use kube-state-metrics. 
 1. To do that we need to expose our kube-state-metrics pod to nodeport
 
 ```
@@ -73,6 +73,33 @@ kubectl expose service prometheus-kube-state-metrics  --type=NodePort  --target-
 
 3. Go to your targets in the prometheus dropdown and select targets and confirm if your endpoint is there
 ![Screenshot (1544)](https://github.com/satya19977/Badminton-Court-Reservation/assets/108000447/a1802c2d-3da4-4ea9-9a9f-378603a9fe03)
+
+### Alerting Rules
+
+This is a simple rule that fires an alert whenever our nodes are down
+```
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    release: prometheus
+  name: node-down
+spec:
+  groups:
+  - name: instancedown
+    rules:
+    - alert: NodeDown
+      expr: up == 0
+      for: 0m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Node Down Alert"
+        description: "A node is unavailable (down)"
+```
+
+![Screenshot (1545)](https://github.com/satya19977/Badminton-Court-Reservation/assets/108000447/c78c1356-f655-4937-8406-b44688bf7597)
+
 
 ### Test
 #### 1.Node CPU Usage: This check what is the idle time of our Node CPU. We want it to be low
