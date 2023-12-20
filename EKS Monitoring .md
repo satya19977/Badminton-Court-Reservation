@@ -48,9 +48,7 @@ kubectl expose service grafana  --type=NodePort  --target-port=3000  --name=graf
 
 
 
-#### You can take the address of each ingress resource and map it to a domain name to create something like grafana.something.com or prometheus. 
 
-![Screenshot (1474)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/d713149a-10fb-42bd-9c07-2c41dc97aa64)
 
 ### We pulled basic metrics such as DiskSpace used, CPU utilization, information such as number of cores, RAM on the system
 
