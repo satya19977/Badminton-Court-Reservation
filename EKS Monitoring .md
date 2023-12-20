@@ -52,7 +52,7 @@ kubectl expose service grafana  --type=NodePort  --target-port=3000  --name=graf
 
 ![Screenshot (1474)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/d713149a-10fb-42bd-9c07-2c41dc97aa64)
 
-### We pulled basic metrics such as Disk Space Used, CPU Utilization, information such as Number of cores, RAM on the system
+### We pulled basic metrics such as DiskSpace used, CPU utilization, information such as number of cores, RAM on the system
 
 
 ![Screenshot (1546)](https://github.com/satya19977/Badminton-Court-Reservation/assets/108000447/8cfdde7a-a8df-4e5e-aed4-75bf8cbfeeda)
