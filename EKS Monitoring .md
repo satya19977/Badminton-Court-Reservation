@@ -52,15 +52,14 @@ kubectl expose service grafana  --type=NodePort  --target-port=3000  --name=graf
 
 ![Screenshot (1474)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/d713149a-10fb-42bd-9c07-2c41dc97aa64)
 
-### A Sample of our Grafana Dashboard the metrics of which are coming from the default kubernetes api
-
-We used ID 3662 which talks about up time and down-time of our cluster
-
-![Screenshot (1501)](https://github.com/satya19977/Kubernetes-Event-Operations/assets/108000447/434744ce-e6ad-4f28-8339-89691241995a)
+### We pulled basic metrics such as Disk Space Used, CPU Utilization, information about the node such as Number of cores, RAM on the system
 
 
+![Screenshot (1546)](https://github.com/satya19977/Badminton-Court-Reservation/assets/108000447/8cfdde7a-a8df-4e5e-aed4-75bf8cbfeeda)
 
-### The above dashboard is a basic one. If we want to expose cluster metrics we need to use kube-state-metrics. 
+
+
+### The above dashboard exposes metrics about the node. If we want to expose cluster metrics we need to use kube-state-metrics. 
 1. To do that we need to expose our kube-state-metrics pod to nodeport
 
 ```
