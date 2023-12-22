@@ -1,19 +1,12 @@
 ## Security defines how access to cluster is given. 
 
 ### How do we secure our cluster. 
-#### 1. Secure our API server
-#### 2. We use RBAC
-#### 3. We use Network Policies
+#### 1. We use RBAC
+#### 2. We use Network Policies
 
-
-### 1. Secure our API Server
-In AWS EKS there are two ways to access our API Endpoints
-1. Public Access Endpoint - In this API access is open to public
-
-2. Private Access Endpoint - We can lock down access to specific VPC or further restrict it with specifi CIDR Blocks
    
-### 2. Control access using RBAC
-#### 2.1. Give admin access to other users
+### 1. Control access using RBAC
+#### 1.1. Give admin access to other users
 ![Screenshot (1483)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/f9f1f94c-04a9-473a-9c69-fb871f516296)
 
 #### We see that the user1 has no permission to access the cluster 
@@ -76,7 +69,7 @@ subjects:
 
 ![Screenshot (1488)](https://github.com/satya19977/Event-Management-System-Using-Kubernetes/assets/108000447/ee126ee1-90f4-45c1-9729-32436406ab0f)
 
-### 3. Use Network Policies to restrict access to mongodb. Only pods from webapp should be allowed
+### 2. Use Network Policies to restrict access to mongodb. Only pods from webapp should be allowed
 ```
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
