@@ -4,7 +4,6 @@
 #### 1. Secure our API server
 #### 2. We use RBAC
 #### 3. We use Network Policies
-#### 4. We use IRSA - enables application running in cluster to authenticate with AWS using IAM roles
 
 ## Prerequisites
 1. Create two users in and no permissions attached to them in IAM
