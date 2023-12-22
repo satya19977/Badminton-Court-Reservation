@@ -5,8 +5,6 @@
 #### 2. We use RBAC
 #### 3. We use Network Policies
 
-## Prerequisites
-1. Create two users in and no permissions attached to them in IAM
 
 ### 1. Secure our API Server
 In AWS EKS there are two ways to access our API Endpoints
