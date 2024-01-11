@@ -157,7 +157,7 @@ spec:
       nodeClassRef:
         name: default
   limits:
-    cpu: 1000
+    cpu: 8000
   disruption:
     consolidationPolicy: WhenUnderutilized
     expireAfter: 1h 
