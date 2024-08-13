@@ -1,4 +1,4 @@
-## Why this Project?    (This is a work-in-progress Repo)
+## Why this Project?  
 
 ### I love playing badminton. So i was trying to book a court on a busy day and realized that the process for booking a court was manual. Player would call the management and they would just use a book to record the details.  I wanted to see how i could use kubernetes to implement a solution for the problem. 
 #### ![k8 Components drawio(4)](https://github.com/satya19977/Deploy-MERN-Application-Using-Kubernetes/assets/108000447/52a12216-7cc9-486e-a8d8-0f1ce519856f)
